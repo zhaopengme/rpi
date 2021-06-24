@@ -26,8 +26,7 @@ func main() {
 	data := getBuffer(dest)
 	fmt.Println(data[:1])
 
-	e.DisplayBlack(data)
-	e.Sleep()
+	e.Display(data)
 
 	fmt.Printf("sleeping\n")
 	time.Sleep(5 * time.Second)
