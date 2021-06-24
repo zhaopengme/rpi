@@ -162,38 +162,36 @@ func (e *Epd) Init() {
 	e.sendData(0x3f) // VDH=15V
 	e.sendData(0x3f) // VDL=-15V
 
-
-	// BOOSTER_SOFT_START
-	fmt.Println("BOOSTER_SOFT_START")
-	e.sendCommand(0x06)
-	e.sendData(0x17)
-	e.sendData(0x17)
 	e.sendData(0x17)
 
 	//POWER_ON
 	fmt.Println("POWER_ON")
 	e.sendCommand(0x04)
+	time.Sleep(100 * time.Millisecond)
 	e.readBusy()
 
 	//PANEL_SETTING
 	fmt.Println("PANEL_SETTING")
 	e.sendCommand(0x00)
-	e.sendData(0x8F)
+	e.sendData(0x1F) // KW-3f   KWR-2F	BWROTP 0f	BWOTP 1f
 
 	// VCOM_AND_DATA_INTERVAL_SETTING
 	fmt.Println("VCOM_AND_DATA_INTERVAL_SETTING")
-	e.sendCommand(0x50)
-	e.sendData(0xF0)
+	e.sendCommand(0x61) // tres
+	e.sendData(0x03) // source 800
+	e.sendData(0x20)
+	e.sendData(0x01) // gate 480
+	e.sendData(0xE0)
 
-	// RESOLUTION_SETTING
-	fmt.Println("RESOLUTION_SETTING")
-	e.sendCommand(0x61)
-	e.sendData(byte(e.width & 0xff))
-	e.sendData(byte(e.height >> 8))
-	e.sendData(byte(e.height & 0xff))
+	e.sendCommand(0x15)
+	e.sendData(0x00)
 
-	fmt.Println("INIT DONE")
-	time.Sleep(100 * time.Millisecond)
+	e.sendCommand(0X50) // VCOM AND DATA INTERVAL SETTING
+	e.sendData(0x10)
+	e.sendData(0x07)
+
+	e.sendCommand(0x60) // TCON SETTING
+	e.sendData(0x22)
 }
 
 // Clear sets epd display to white
@@ -216,4 +214,5 @@ func (e *Epd) Clear() {
 	fmt.Println("REFRESH")
 	e.sendCommand(0x12)
 	e.readBusy()
+
 }
