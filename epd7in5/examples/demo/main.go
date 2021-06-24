@@ -21,7 +21,7 @@ func main() {
 	fmt.Printf("Display\n")
 
 	dest := draw()
-	draw2dimg.SaveToPngFile("test.png", dest)
+	draw2dimg.SaveToPngFile("test2.png", dest)
 
 	data := getBuffer(dest)
 	fmt.Println(data[:1])
