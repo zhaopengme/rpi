@@ -24,8 +24,8 @@ import (
 )
 
 const (
-	EPD_WIDTH  int = 640
-	EPD_HEIGHT int = 384
+	EPD_WIDTH  int = 800
+	EPD_HEIGHT int = 480
 )
 
 const (
@@ -304,7 +304,7 @@ func (e *Epd) Sleep() {
 	e.sendCommand(POWER_OFF)
 	e.waitUntilIdle()
 	e.sendCommand(DEEP_SLEEP)
-	e.sendData(0XA5)
+	e.sendData(0xA5)
 }
 
 // Convert converts the input image into a ready-to-display byte buffer.
