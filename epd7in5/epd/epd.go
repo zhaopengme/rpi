@@ -113,40 +113,15 @@ func (e *Epd) Sleep() {
 }
 
 // Display sends []byte data to the epd
-func (e *Epd) Display(imageblack, imagered []byte) {
-	e.sendCommand(0x10)
-	for i := 0; i < (e.width*e.height)/8; i++ {
-		e.sendData(imageblack[i])
-	}
-	e.sendCommand(0x92)
-
+func (e *Epd) Display(imagered []byte) {
 	e.sendCommand(0x13)
 	for i := 0; i < (e.width*e.height)/8; i++ {
 		e.sendData(imagered[i])
 	}
-	e.sendCommand(0x92)
 
 	// REFRESH
 	e.sendCommand(0x12)
-	e.readBusy()
-}
-
-// DisplayBlack sends only black []byte data to the epd
-func (e *Epd) DisplayBlack(imageblack []byte) {
-	e.sendCommand(0x10)
-	for i := 0; i < (e.width*e.height)/8; i++ {
-		e.sendData(imageblack[i])
-	}
-	e.sendCommand(0x92)
-
-	e.sendCommand(0x13)
-	for i := 0; i < (e.width*e.height)/8; i++ {
-		e.sendData(0xFF)
-	}
-	e.sendCommand(0x92)
-
-	// REFRESH
-	e.sendCommand(0x12)
+	time.Sleep(100 * time.Millisecond)
 	e.readBusy()
 }
 
