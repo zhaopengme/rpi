@@ -41,7 +41,7 @@ func CreateEpd() Epd {
 		fmt.Println(err)
 	}
 
-	e.spiConn, err = e.port.Connect(2*physic.MegaHertz, spi.Mode0, 8)
+	e.spiConn, err = e.port.Connect(4*physic.MegaHertz, spi.Mode0, 8)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -66,7 +66,7 @@ func (e *Epd) reset() {
 	e.rstPin.Out(true)
 	time.Sleep(200 * time.Millisecond)
 	e.rstPin.Out(false)
-	time.Sleep(10 * time.Millisecond)
+	time.Sleep(2 * time.Millisecond)
 	e.rstPin.Out(true)
 	time.Sleep(200 * time.Millisecond)
 }
@@ -154,6 +154,14 @@ func (e *Epd) DisplayBlack(imageblack []byte) {
 func (e *Epd) Init() {
 	fmt.Println("reset")
 	e.reset()
+
+	fmt.Println("BOOSTER_SOFT_START")
+	e.sendCommand(0x01) // POWER SETTING
+	e.sendData(0x07)
+	e.sendData(0x07) // VGH=20V,VGL=-20V
+	e.sendData(0x3f) // VDH=15V
+	e.sendData(0x3f) // VDL=-15V
+
 
 	// BOOSTER_SOFT_START
 	fmt.Println("BOOSTER_SOFT_START")

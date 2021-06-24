@@ -1,14 +1,14 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gandaldf/rpi/epd7in5"
+	"log"
 )
 
 func main() {
 	log.Println("Starting...")
-	epd, _ := epd7in5.New("P1_25", "P1_8", "P1_17", "P1_24")
+	epd, _ := epd7in5.New("GPIO25", "GPIO8", "GPIO17", "GPIO24")
+
 
 	log.Println("Initializing the display...")
 	epd.Init()
