@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	fmt.Printf("start\n")
 	e := epd.CreateEpd()
 	defer e.Close()
 	defer e.Clear()
