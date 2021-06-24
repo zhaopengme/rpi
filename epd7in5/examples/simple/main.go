@@ -7,8 +7,10 @@ import (
 
 func main() {
 	log.Println("Starting...")
-	epd, _ := epd7in5.New("GPIO25", "GPIO8", "GPIO17", "GPIO24")
-
+	epd, e := epd7in5.New("GPIO25", "GPIO8", "GPIO17", "GPIO24")
+	if e != nil {
+		log.Panic(e)
+	}
 
 	log.Println("Initializing the display...")
 	epd.Init()
