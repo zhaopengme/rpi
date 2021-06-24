@@ -35,14 +35,14 @@ func main() {
 func draw() *image.RGBA {
 	width := 800
 	height := 480
-	dest := image.NewRGBA(image.Rect(0, 0, height, width)) // horizontal
+	dest := image.NewRGBA(image.Rect(0, 0, width, height)) // horizontal
 	gc := draw2dimg.NewGraphicContext(dest)
 
 	black := color.RGBA{0x00, 0x00, 0x00, 0xff}
 	white := color.RGBA{0xff, 0xff, 0xff, 0xff}
 
 	gc.SetFillColor(white)
-	drawRect(gc, 0, 0, float64(height), float64(width))
+	drawRect(gc, 0, 0, float64(width), float64(height))
 	gc.Fill()
 
 	gc.SetFillColor(black)
