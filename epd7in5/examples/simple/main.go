@@ -8,7 +8,7 @@ import (
 
 func main() {
 	log.Println("Starting...")
-	epd, _ := epd7in5.New("P1_22", "P1_24", "P1_11", "P1_18")
+	epd, _ := epd7in5.New("P1_25", "P1_8", "P1_17", "P1_24")
 
 	log.Println("Initializing the display...")
 	epd.Init()

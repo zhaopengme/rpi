@@ -73,14 +73,14 @@ type Epd struct {
 	c          conn.Conn
 	dc         gpio.PinOut
 	cs         gpio.PinOut
-	rst        gpio.PinOut
+	reset      gpio.PinOut
 	busy       gpio.PinIO
 	widthByte  int
 	heightByte int
 }
 
 // New returns a Epd object that communicates over SPI to the display controller.
-func New(dcPin, csPin, rstPin, busyPin string) (*Epd, error) {
+func New(dcPin, csPin, resetPin, busyPin string) (*Epd, error) {
 	if _, err := host.Init(); err != nil {
 		return nil, err
 	}
@@ -109,13 +109,13 @@ func New(dcPin, csPin, rstPin, busyPin string) (*Epd, error) {
 		return nil, err
 	}
 
-	// RST pin
-	rst := gpioreg.ByName(rstPin)
-	if rst == nil {
-		return nil, errors.New("spi: failed to find RST pin")
+	// RESET Pin
+	reset := gpioreg.ByName(resetPin)
+	if reset == nil {
+		return nil, errors.New("spi: failed to find RESET Pin")
 	}
 
-	if err := rst.Out(gpio.Low); err != nil {
+	if err := reset.Out(gpio.Low); err != nil {
 		return nil, err
 	}
 
@@ -155,7 +155,7 @@ func New(dcPin, csPin, rstPin, busyPin string) (*Epd, error) {
 		c:          c,
 		dc:         dc,
 		cs:         cs,
-		rst:        rst,
+		reset:      reset,
 		busy:       busy,
 		widthByte:  widthByte,
 		heightByte: heightByte,
@@ -166,11 +166,11 @@ func New(dcPin, csPin, rstPin, busyPin string) (*Epd, error) {
 
 // Reset can be also used to awaken the device.
 func (e *Epd) Reset() {
-	e.rst.Out(gpio.High)
+	e.reset.Out(gpio.High)
 	time.Sleep(200 * time.Millisecond)
-	e.rst.Out(gpio.Low)
+	e.reset.Out(gpio.Low)
 	time.Sleep(200 * time.Millisecond)
-	e.rst.Out(gpio.High)
+	e.reset.Out(gpio.High)
 	time.Sleep(200 * time.Millisecond)
 }
 
