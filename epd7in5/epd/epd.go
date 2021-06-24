@@ -178,7 +178,7 @@ func (e *Epd) Init() {
 	// VCOM_AND_DATA_INTERVAL_SETTING
 	fmt.Println("VCOM_AND_DATA_INTERVAL_SETTING")
 	e.sendCommand(0x61) // tres
-	e.sendData(0x03) // source 800
+	e.sendData(0x03)    // source 800
 	e.sendData(0x20)
 	e.sendData(0x01) // gate 480
 	e.sendData(0xE0)
@@ -196,23 +196,23 @@ func (e *Epd) Init() {
 
 // Clear sets epd display to white
 func (e *Epd) Clear() {
+
 	fmt.Println("CLEAR 1")
 	e.sendCommand(0x10)
 	for i := 0; i < (e.width*e.height)/8; i++ {
-		e.sendData(0xFF)
+		e.sendData(0x00)
 	}
-	e.sendCommand(0x92)
 
 	fmt.Println("CLEAR 2")
 	e.sendCommand(0x13)
 	for i := 0; i < (e.width*e.height)/8; i++ {
-		e.sendData(0xFF)
+		e.sendData(0x00)
 	}
-	e.sendCommand(0x92)
 
 	// REFRESH
 	fmt.Println("REFRESH")
 	e.sendCommand(0x12)
+	time.Sleep(100 * time.Millisecond)
 	e.readBusy()
 
 }
