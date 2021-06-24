@@ -65,7 +65,7 @@ func drawRect(gc *draw2dimg.GraphicContext, x, y, w, h float64) {
 
 func getBuffer(image *image.RGBA) []byte {
 	width := 800
-	height := 2480
+	height := 480
 
 	size := (width * height) / 8
 	data := make([]byte, size)
